@@ -1,5 +1,5 @@
 # Create your views here.
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -37,3 +37,8 @@ def loginfunc(request):
 def listfunc(request):
     object_list = SnsModel.objects.all()
     return render(request, 'list.html', {'object_list': object_list})
+
+
+def logoutfunc(request):
+    logout(request)
+    return redirect('login')
