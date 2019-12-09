@@ -1,7 +1,10 @@
 # Create your views here.
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from sns_app.models import SnsModel
 
 
 def signupfunc(request):
@@ -24,11 +27,13 @@ def loginfunc(request):
         user = authenticate(request, username=username2, password=password2)
         if user is not None:
             login(request, user)
-            return render(request, 'signup.html')
+            return redirect('list')
         else:
             return redirect('login')
     return render(request, 'login.html')
 
 
+@login_required
 def listfunc(request):
-    return render(request, 'list.html')
+    object_list = SnsModel.objects.all()
+    return render(request, 'list.html', {'object_list': object_list})
