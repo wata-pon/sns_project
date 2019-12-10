@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from sns_app.models import SnsModel
 
@@ -63,6 +65,13 @@ def readfunc(request, pk):
         return redirect('list')
     else:
         post.read += 1
-        post.readtext = post.readtex + 1
+        post.readtext = post.readtext + ' ' + post2
         post.save()
         return redirect('list')
+
+
+class SnsCreate(CreateView):
+    template_name = 'create.html'
+    model = SnsModel
+    fields = ['title', 'content', 'contributor', 'image']
+    success_url = reverse_lazy('list')
