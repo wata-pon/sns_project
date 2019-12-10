@@ -47,3 +47,22 @@ def logoutfunc(request):
 def detailfunc(request, pk):
     object = SnsModel.objects.get(pk=pk)
     return render(request, 'detail.html', {'object': object})
+
+
+def goodfunc(request, pk):
+    post = SnsModel.objects.get(pk=pk)
+    post.good += 1
+    post.save()
+    return redirect('list')
+
+
+def readfunc(request, pk):
+    post = SnsModel.objects.get(pk=pk)
+    post2 = request.user.get_username()
+    if post2 in post.readtext:
+        return redirect('list')
+    else:
+        post.read += 1
+        post.readtext = post.readtex + 1
+        post.save()
+        return redirect('list')

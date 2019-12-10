@@ -16,8 +16,9 @@
             <p>内容:{{ object.content }}</p>
             <p>投稿者:{{ object.contributor }}</p>
             <p><img src='{{ object.image.url }}' width=300></p>
-            <a href="#" class="btn btn-primary active" role="button" aria-pressed="true">Primary link</a>
-            <a href="#" class="btn btn-secondary active" role="button" aria-pressed="true">Link</a>
+            <a href="{% url 'good' object.pk %}" class="btn btn-primary active" role="button"
+               aria-pressed="true">いいね👍</a>
+            <a href="{% url 'read' object.pk %}" class="btn btn-secondary active" role="button" aria-pressed="true">既読にする</a>
         </div>
     </div>
 {% endblock content %}
